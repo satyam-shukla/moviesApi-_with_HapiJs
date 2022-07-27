@@ -10,9 +10,9 @@ module.exports = {
         _db = client.db("hapicrud");
     },
     async closeConnection(){
-        client.close()  
+        client.close()
     },
     get(){
         return _db
-    }
+    }   
 }

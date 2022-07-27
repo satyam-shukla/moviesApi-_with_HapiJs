@@ -1,6 +1,9 @@
 const Hapi = require("@hapi/hapi");
 const db = require("./configs/db");
-const routes = require("./routes/routes")
+const routes = require("./routes/routes");
+const Inert = require('@hapi/inert');
+const Vision = require('@hapi/vision');
+const HapiSwagger = require('hapi-swagger');
 
 
 
@@ -26,6 +29,21 @@ const init = async () => {
     // GET A SINGLE MOVIE
     // DELETE A SINGLE  MOVIE FROM A DATABASE
     // SEARCH A SINGLE
+    const swaggerOptions = {
+        info: {
+                title: 'Test API Documentation',
+                version: '1.0.0',
+            },
+        };
+
+    await server.register([
+        Inert,
+        Vision,
+        {
+            plugin: HapiSwagger,
+            options: swaggerOptions
+        }
+    ]);
     server.route(routes)
     await connect()
     server.start();

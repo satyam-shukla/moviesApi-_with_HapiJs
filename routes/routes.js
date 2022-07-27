@@ -1,30 +1,64 @@
-const movieData = require("../controllers/movies.controller")
+const Joi = require("joi");
+const movieData = require("../controllers/movies.controller");
+
 module.exports = [
     {
         method: "GET",
         path: "/movies",
-        handler: movieData.getAllMovies
-    },{
+        options:{
+            handler: movieData.getAllMovies,
+            description: 'GET ALL MOVIES',
+            tags: ['api','movies'], // ADD THIS TAG
+        }
+    },
+    {
         method: "POST",
         path: "/movies",
-        handler: movieData.createMovie
-    },{
+        options:{
+            handler: movieData.createMovie,
+            description: 'CREATE A NEW MOVIE',
+            tags: ['api','movies'], // ADD THIS TAG
+            validate: {
+                payload: Joi.object({
+                    name:Joi.string().required().min(1).max(30),
+                    title:Joi.string().required().min(1).max(200),
+                    type:Joi.array().items(Joi.string().required()),
+                })
+            }
+            
+        }
+        
+    }
+    ,{
         method: "GET",
         path: "/movies/{id}",
-        handler: movieData.getOneMovie
+        options:{
+            handler: movieData.getOneMovie,
+            description: 'GET ONE MOVIE',
+            tags: ['api','movies'], // ADD THIS TAG
+        }
+
     },{
         method: "PATCH",
         path: "/movies/{id}",
-        handler: movieData.updateOne
+        options:{
+            handler: movieData.updateOne,
+            description: 'UPDATE A  MOVIE',
+            tags: ['api','movies'], // ADD THIS TAG
+        }
     },{
         method: "DELETE",
         path: "/movies/{id}",
-        handler: movieData.deleteOne
+        options:{
+            handler: movieData.deleteOne,
+            description: 'DELETE A  MOVIE',
+            tags: ['api','movies'], // ADD THIS TAG
+        }
     },{
-        method: "GET",
-        path: "/",
-        handler: (req, h) => {
-            return "RETURN SERACH RESULT FORM SPECIFIED TERM"
+        method: '*',
+        path: '/{any*}',
+        handler: function (request, h) {
+            return '<h1>404 Error! Page Not Found!</h1>';
         }
     }
 ]
