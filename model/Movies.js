@@ -1,10 +1,6 @@
 const db = require("../configs/db");
 
 const tableName = "Movies"
-
-
-
-
 // GET ALL
 const getAll = async()=>{
     return db.get().collection(tableName).find().toArray()
@@ -35,12 +31,19 @@ const updateOne = (data,query) =>{
     return db.get().collection(tableName).updateOne(data,{$set:query})
 }
 
+// SEARCH A SINGLE MOVIE
+
+
+const aggregateOne = (data)=>{
+    return db.get().collection(tableName).aggregate(data).toArray()
+}
+
 module.exports={
     getAll,
     getOne,
     createMovie,
     DeleteOne,
-    updateOne
-    
+    updateOne,
+    aggregateOne
 }
 

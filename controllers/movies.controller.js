@@ -16,7 +16,7 @@ const getAllMovies = async(req, h) =>{
 const getOneMovie = async(req,h)=>{
     const _id = new ObjectId(req.params.id)
     try {
-        const movie = await moviesModal.getOne({_id},{projection:{title:1,plot:1,cast:1,year:1}})
+        const movie = await moviesModal.getOne({_id}, {projection:{title:1,name:1,type:1}})
         return h.response(movie).code(200)
     } catch (err) {
         return h.response(err).code(400)
@@ -57,12 +57,25 @@ const updateOne = async(req,h)=>{
     }
 }
 
+const aggregateOne = async(req ,h)=>{
+    console.log(req.query.title)
+    try {
+        const movie = await moviesModal.aggregateOne([
+            { $match: { title: req.query.title } }
+          ])
+        return h.response(movie).code(200)
+    } catch (err) {
+        return h.response(err).code(400)
+    }
+}
+
 module.exports = {
     getAllMovies,
     getOneMovie,
     createMovie,
     deleteOne,
-    updateOne
+    updateOne,
+    aggregateOne
 }
 
 

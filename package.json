@@ -14,9 +14,13 @@
     "@hapi/inert": "^7.0.0",
     "@hapi/joi": "^17.1.1",
     "@hapi/vision": "^7.0.0",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.1",
     "hapi-mongodb": "^10.0.3",
     "hapi-swagger": "^14.5.5",
     "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
     "mongodb": "^4.8.0"
   }
 }

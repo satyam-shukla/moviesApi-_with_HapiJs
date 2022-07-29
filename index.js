@@ -7,7 +7,7 @@ const HapiSwagger = require('hapi-swagger');
 
 
 
-const connect = async()=>{
+const connect = async () => {
     try {
         await db.connectToServer()
         console.log("DATABASE IS CONNECTED");
@@ -31,10 +31,18 @@ const init = async () => {
     // SEARCH A SINGLE
     const swaggerOptions = {
         info: {
-                title: 'Test API Documentation',
-                version: '1.0.0',
+            title: 'Movies API ',
+            version: '1.0.0',
+        },
+        securityDefinitions: {
+            jwt: {
+                type: 'apiKey',
+                name: 'Authorization',
+                in: 'header',
             },
-        };
+        },
+        security: [{ jwt: [] }],
+    };
 
     await server.register([
         Inert,
