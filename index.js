@@ -5,7 +5,7 @@ const Inert = require('@hapi/inert');
 const Vision = require('@hapi/vision');
 const HapiSwagger = require('hapi-swagger');
 
-
+require("dotenv").config();
 
 const connect = async () => {
     try {
@@ -21,8 +21,8 @@ const connect = async () => {
 
 const init = async () => {
     const server = Hapi.server({
-        port: 8700,
-        host: "localhost"
+        port: process.env.PORT,
+        host: process.env.HOST
     })
     // Get all movies
     // Add a new movie to a database

@@ -1,4 +1,5 @@
 const {MongoClient} = require("mongodb")
+require("dotenv").config()
 let _db
 let client 
 
@@ -6,8 +7,8 @@ let client
 
 module.exports = {
     async connectToServer(){
-        client = await MongoClient.connect("mongodb://localhost:27017/hapicrud")
-        _db = client.db("hapicrud")
+        client = await MongoClient.connect(process.env.DATABASE_URL)
+        _db = client.db(process.env.DB_NAME)
     },
     async closeConnection(){
         client.close()

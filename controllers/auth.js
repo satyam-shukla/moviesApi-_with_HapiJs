@@ -5,9 +5,11 @@ const db = require("../configs/db");
 const ObjectId = require("mongodb").ObjectId;
 const Boom = require('@hapi/boom');
 const userModal = require("../model/auth");
+require("dotenv").config()
 
 // ADD A NEW USER TO DATABASE
 const registerUser = async (req, h) => {
+    console.log("satyam--------------")
     try {
         const userFound = await userModal.getUser({ email: req.payload.email });
         if (userFound) {
@@ -35,7 +37,7 @@ const loginUser = async (req, h) => {
             const correctPwd = bcrypt.compareSync(req.payload.password,user.password);
             if(correctPwd){
                 let userData = _.pick(user,['email', 'firstName', 'lastName'])
-                token = jwt.sign(userData,"satyam20130079755",{expiresIn:"1h"});
+                token = jwt.sign(userData,process.env.JWT,{expiresIn:process.env.EXPIRES_TOKEN});
                 return { success: true, message: 'Login Successful', data: token, statusCode: 200 };
             }else{
                 return Boom.unauthorized("Invalid Password")
@@ -113,3 +115,5 @@ module.exports = {
     deleteUser,
     searchUsers
 }
+
+

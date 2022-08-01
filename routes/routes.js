@@ -11,8 +11,8 @@ module.exports = [
             tags: ['api', 'user'], // ADD THIS TAG
             validate: {
                 payload: Joi.object({
-                    firstName: Joi.string().required().min(5).max(20),
-                    lastName: Joi.string().required().min(5).max(20),
+                    firstName: Joi.string().required().min(2).max(20),
+                    lastName: Joi.string().required().min(2).max(20),
                     email: Joi.string().required().email().lowercase(),
                     password:Joi.string().required().min(1).max(30),
                 })
